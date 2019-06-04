@@ -1,17 +1,21 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { updateFormValues, updateRunners } from '../actions/form';
+import { updateFormValues, addRunner } from '../actions/form';
 
 class RaceForm extends Component {
-  constructor(props) {
-    super(props);
-  }
   updateRunners = (e) => {
-    this.props.updateRunners(e.target.name, e.target.value);
+    this.props.addRunner(e.target.name, e.target.value);
   }
+
+  startRace = () => {
+    this.props.updateFormValues('hasStarted', true);
+    this.props.updateFormValues('currentLeg', 1);
+  }
+
   changed = (e) => {
     this.props.updateFormValues(e.target.name, e.target.value);
   }
+
   render() {
     const { runners, raceState: {legCount, legsPerRunner, raceName, runnerCount } } = this.props;
     const runnerObj = Object.values(runners);
@@ -48,6 +52,7 @@ class RaceForm extends Component {
             )
           })}
         </form>
+        <button onClick={this.startRace}>Start Race!</button>
       </Fragment>
     );
   }
@@ -58,5 +63,5 @@ export default connect(
     raceState: state.raceState,
     runners: state.runners
   }),
-  {updateFormValues, updateRunners}
+  {updateFormValues, addRunner}
 )(RaceForm);

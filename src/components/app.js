@@ -3,13 +3,21 @@ import { connect } from 'react-redux';
 
 import RaceForm from './race-form';
 import Race from './race';
-export default class App extends Component {
+
+class App extends Component {
   render() {
+    const { hasStarted } = this.props;
     return (
       <div>
-        <RaceForm />
-        <Race />
+        {!hasStarted && <RaceForm />}
+        {hasStarted && <Race />}
       </div>
     );
   }
 };
+
+export default connect(
+  state => ({
+    hasStarted: state.raceState.hasStarted,
+  })
+)(App);

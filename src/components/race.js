@@ -1,44 +1,50 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-
+import { updateRunner, clearRace } from '../actions/form';
 
 
 class RaceForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      runnerNumber: 0
+      runnerNumber: null,
+      lastPick: null
     }
   }
   skipRun = () => {
     // select a new runner.
     // mark runner as used skip
+    this.pickRunner();
   }
   runIt = () => {
     // set that the person is running
+    // keep track of all legs runner has run
   }
-  startRace = () => {
-    // action to set leg number
-    // pick first runner
-  }
-  pickRunner = (e) => {
-    e.preventDefault();
+
+  pickRunner = () => {
     const { raceState: { runnerCount } } = this.props;
-    const runnerNumber = Math.floor(Math.random() * Number(runnerCount)) + 0;
-    console.log(runnerNumber)
-    this.setState({runnerNumber});
+    const { runnerNumber } = this.state;
+    const newRunnerNumber = Math.floor(Math.random() * Number(runnerCount)) + 0;
+    this.setState({
+      runnerNumber: newRunnerNumber,
+      lastPick: runnerNumber
+    });
   }
+
   render() {
     const { runners, raceState: {legCount, legsPerRunner, raceName, runnerCount, currentLeg } } = this.props;
     const { runnerNumber } = this.state;
-    const runner = runners[runnerNumber].name;
+    const runner = runnerNumber && runners[runnerNumber].name;
+    const pickButtonText = runnerNumber ? 'Pick another Runner' : 'Pick Runner';
     return (
       <div>
-        {currentLeg === 0 && <button onClick={this.startRace}>Start Race!</button> }
-        {<span>Hello {runner} you are up!</span>}
-        <button>Skip</button>
-        <button>Run it!</button>
-        <button onClick={this.pickRunner}>Pick Runner</button>
+        {Boolean(runnerNumber) && <div>
+          <span>Hello {runner} you are up!</span>
+          <button type="button" onClick={this.skipRun}>Skip</button>
+          <button type="button" onClick={this.runIt}>Run it!</button>
+        </div>}
+        <button type="button" onClick={this.pickRunner}>{pickButtonText}</button>
+        <button type="button" onClick={this.props.clearRace}>Clear Race</button>
       </div>
     );
   }
@@ -48,5 +54,6 @@ export default connect(
   state => ({
     raceState: state.raceState,
     runners: state.runners
-  })
+  }),
+  {updateRunner, clearRace}
 )(RaceForm);

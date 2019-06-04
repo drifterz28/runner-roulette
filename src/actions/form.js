@@ -9,9 +9,18 @@ export const updateFormValues = (name, value) => dispatch => {
   });
 };
 
-export const updateRunners = (index, name) => dispatch => {
-  console.log(index, name);
+export const addRunner = (index, name) => dispatch => {
   dispatch({
     type: 'SAVING_RUNNERS', index, name
+  });
+}
+
+export const updateRunner = (index, runner) => dispatch => {
+
+}
+
+export const clearRace = () => dispatch => {
+  dispatch({
+    type: 'CLEAR'
   });
 }

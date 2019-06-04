@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
-import counter from './count';
+import raceState from './race-state';
+import runners from './runners';
 
 export default combineReducers({
-  counter
+  raceState,
+  runners
 });

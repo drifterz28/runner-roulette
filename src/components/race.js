@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { updateRunner, clearRace, updateFormValues } from '../actions/form';
+import { updateRunner, clearRace, updateFormValues, runIt } from '../actions/form';
 
 
 class RaceForm extends Component {
@@ -25,6 +25,19 @@ class RaceForm extends Component {
   runIt = () => {
     // set that the person is running
     // keep track of all legs runner has run
+    const { runners, raceState: {currentLeg} } = this.props;
+    const { runnerNumber } = this.state;
+    this.props.runIt(currentLeg, runners[runnerNumber]);
+  }
+
+  clearLegs = () => {
+    localStorage.removeItem('legs');
+  }
+
+  clearRace = () => {
+    if(confirm('Are you sure you want to start over?')) {
+      this.props.clearRace();
+    }
   }
 
   pickRunner = () => {
@@ -46,12 +59,13 @@ class RaceForm extends Component {
       <div>
         {Boolean(runnerNumber) && <div>
           <span>Hello {runner} you are up!</span>
-          <button type="button" onClick={this.skipRun}>Skip</button>
-          <button type="button" onClick={this.runIt}>Run it!</button>
+          <button className='button is-danger' type="button" onClick={this.skipRun}>Skip</button>
+          <button className='button is-primary' type="button" onClick={this.runIt}>Run it!</button>
         </div>}
-        <button type="button" onClick={this.pickRunner}>{pickButtonText}</button>
-        <button type="button" onClick={this.props.clearRace}>Clear Race</button>
-        <button type="button" onClick={this.editRace}>Edit Race</button>
+        <button className='button is-primary' type="button" onClick={this.pickRunner}>{pickButtonText}</button>
+        <button className='button is-danger' type="button" onClick={this.clearRace}>Clear Race</button>
+        <button className='button is-info' type="button" onClick={this.editRace}>Edit Race</button>
+        <button className='button is-danger' type="button" onClick={this.clearLegs}>Clear legs</button>
       </div>
     );
   }
@@ -62,5 +76,5 @@ export default connect(
     raceState: state.raceState,
     runners: state.runners
   }),
-  {updateRunner, clearRace, updateFormValues}
+  {updateRunner, clearRace, updateFormValues, runIt}
 )(RaceForm);

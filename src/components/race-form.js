@@ -2,6 +2,16 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { updateFormValues, addRunner } from '../actions/form';
 
+
+const Input = ({label, name, type = 'text', classes = '', defaultValue}) => (
+  <div className='field column'>
+    <label id={name} className='label'>{label}</label>
+    <div className='control'>
+      <input htmlFor={name} className={`input ${classes}`} type={type} name={name} defaultValue={defaultValue} />
+    </div>
+  </div>
+);
+
 class RaceForm extends Component {
   updateRunners = (e) => {
     this.props.addRunner(e.target.name, e.target.value);
@@ -26,35 +36,25 @@ class RaceForm extends Component {
     return (
       <Fragment>
         <form onChange={this.changed} className='columns'>
-          <label className='column'>
-            Race Name
-            <input className='input' type="text" name='raceName' defaultValue={raceName} />
-          </label>
-          <label className='column'>
-            Runner Count
-            <input className='input' name='runnerCount' type='number' defaultValue={runnerCount} />
-          </label>
-          <label className='column'>
-            Leg Count
-            <input className='input' name='legCount' type='number' defaultValue={legCount} />
-          </label>
-          <label className='column'>
-            Legs per runner
-            <input className='input' name='legsPerRunner' type='number' defaultValue={legsPerRunner} />
-          </label>
+          <Input
+            label='Race Name'
+            classes='input'
+            type='text'
+            name='raceName'
+            defaultValue={raceName} />
+            <Input label='Runner Count' classes='input' name='runnerCount' type='number' defaultValue={runnerCount} />
+            <Input label='Leg Count' classes='input' name='legCount' type='number' defaultValue={legCount} />
+            <Input label='Legs per runner' classes='input' name='legsPerRunner' type='number' defaultValue={legsPerRunner} />
         </form>
         <br/>
         <form onChange={this.updateRunners}>
           {runnersArray.map((value, i) => {
             return  (
-              <label key={i}>
-                Runner {i + 1} Name
-                <input className='input' type="text" name={i} defaultValue={value.name} />
-              </label>
+              <Input key={i} label={`Runner ${i + 1} Name`} className='input' type='text' name={i} defaultValue={value.name} />
             )
           })}
         </form>
-        <button onClick={this.startRace} disabled={!hasRunners}>Start Race!</button>
+        <button className='button is-primary' onClick={this.startRace} disabled={!hasRunners}>Start Race!</button>
       </Fragment>
     );
   }

@@ -19,26 +19,28 @@ class RaceForm extends Component {
   render() {
     const { runners, raceState: {legCount, legsPerRunner, raceName, runnerCount } } = this.props;
     const runnerObj = Object.values(runners);
-    const runnerCountSetup = Math.abs(runnerCount - runnerObj.length);
+    const runnersAdded = runnerObj.length;
+    const runnerCountSetup = Math.abs(runnerCount - runnersAdded);
     const runnersArray = [...runnerObj, ...Array(runnerCountSetup).fill({})];
+    const hasRunners = Boolean(runnersAdded);
     return (
       <Fragment>
-        <form onChange={this.changed}>
-          <label>
+        <form onChange={this.changed} className='columns'>
+          <label className='column'>
             Race Name
-            <input name='raceName' defaultValue={raceName} />
+            <input className='input' type="text" name='raceName' defaultValue={raceName} />
           </label>
-          <label>
+          <label className='column'>
             Runner Count
-            <input name='runnerCount' type='number' defaultValue={runnerCount} />
+            <input className='input' name='runnerCount' type='number' defaultValue={runnerCount} />
           </label>
-          <label>
+          <label className='column'>
             Leg Count
-            <input name='legCount' type='number' defaultValue={legCount} />
+            <input className='input' name='legCount' type='number' defaultValue={legCount} />
           </label>
-          <label>
+          <label className='column'>
             Legs per runner
-            <input name='legsPerRunner' type='number' defaultValue={legsPerRunner} />
+            <input className='input' name='legsPerRunner' type='number' defaultValue={legsPerRunner} />
           </label>
         </form>
         <br/>
@@ -47,12 +49,12 @@ class RaceForm extends Component {
             return  (
               <label key={i}>
                 Runner {i + 1} Name
-                <input name={i} defaultValue={value.name} />
+                <input className='input' type="text" name={i} defaultValue={value.name} />
               </label>
             )
           })}
         </form>
-        <button onClick={this.startRace}>Start Race!</button>
+        <button onClick={this.startRace} disabled={!hasRunners}>Start Race!</button>
       </Fragment>
     );
   }

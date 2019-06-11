@@ -29,17 +29,18 @@
   },
   "homepage": "https://github.com/drifterz28/runner-roulette#readme",
   "dependencies": {
+    "bulma": "^0.7.5",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
     "redux": "^4.0.1",
-    "redux-saga": "^1.0.2",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
-    "@babel/preset-react": "^7.0.0"
+    "@babel/preset-react": "^7.0.0",
+    "sass": "^1.21.0"
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { updateRunner, clearRace } from '../actions/form';
+import { updateRunner, clearRace, updateFormValues } from '../actions/form';
 
 
 class RaceForm extends Component {
@@ -11,6 +11,12 @@ class RaceForm extends Component {
       lastPick: null
     }
   }
+
+
+  editRace = () => {
+    this.props.updateFormValues('hasStarted', false);
+  }
+
   skipRun = () => {
     // select a new runner.
     // mark runner as used skip
@@ -45,6 +51,7 @@ class RaceForm extends Component {
         </div>}
         <button type="button" onClick={this.pickRunner}>{pickButtonText}</button>
         <button type="button" onClick={this.props.clearRace}>Clear Race</button>
+        <button type="button" onClick={this.editRace}>Edit Race</button>
       </div>
     );
   }
@@ -55,5 +62,5 @@ export default connect(
     raceState: state.raceState,
     runners: state.runners
   }),
-  {updateRunner, clearRace}
+  {updateRunner, clearRace, updateFormValues}
 )(RaceForm);

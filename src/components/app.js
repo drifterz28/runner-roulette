@@ -18,6 +18,6 @@ class App extends Component {
 
 export default connect(
   state => ({
-    hasStarted: state.raceState.hasStarted,
+    hasStarted: state.race.hasStarted,
   })
 )(App);

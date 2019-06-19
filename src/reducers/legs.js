@@ -6,7 +6,6 @@ export function raceState(state = [...initRaceState, ...initState], action) {
   } else if(action.type === 'RUN_IT') {
     const newState = [];
     const newRaceState = [...state, action.runner.name];
-    localStorage.setItem('legs', JSON.stringify(newRaceState));
 		return newRaceState;
 	} else {
 		return state;

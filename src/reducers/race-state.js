@@ -8,7 +8,7 @@ const initRaceState = {
   hasStarted: false
 };
 const initState = localStorage.getItem('race') ? JSON.parse(localStorage.getItem('race')) : {};
-export function raceState(state = {...initRaceState, ...initState}, action) {
+export function race(state = {...initRaceState, ...initState}, action) {
   if(action.type === 'CLEAR') {
     localStorage.clear();
     return initRaceState;
@@ -16,11 +16,10 @@ export function raceState(state = {...initRaceState, ...initState}, action) {
     const newState = {};
     newState[action.name] = action.value;
     const newRaceState = {...state, ...newState};
-    localStorage.setItem('race', JSON.stringify(newRaceState));
 		return newRaceState;
 	} else {
 		return state;
   }
 }
 
-export default raceState;
+export default race;

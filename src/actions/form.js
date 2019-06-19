@@ -15,15 +15,13 @@ export const addRunner = (index, name) => dispatch => {
   });
 }
 
-export const updateRunner = (runner) => dispatch => {
+const updateRunner = (runner) => dispatch => {
   console.log('runner', runner)
 }
 
 export const runIt = (leg, runner) => dispatch => {
   let runCount = Number(runner.runCount);
   runner.runCount = runCount + 1;
-  console.log(runner)
-  // updateRunner(runner);
   dispatch({
     type: 'RUN_IT',
     leg, runner

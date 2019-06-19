@@ -27,7 +27,7 @@ class RaceForm extends Component {
   }
 
   render() {
-    const { runners, raceState: {legCount, legsPerRunner, raceName, runnerCount } } = this.props;
+    const { runners, race: {legCount, legsPerRunner, raceName, runnerCount } } = this.props;
     const runnerObj = Object.values(runners);
     const runnersAdded = runnerObj.length;
     const runnerCountSetup = Math.abs(runnerCount - runnersAdded);
@@ -62,7 +62,7 @@ class RaceForm extends Component {
 
 export default connect(
   state => ({
-    raceState: state.raceState,
+    race: state.race,
     runners: state.runners
   }),
   {updateFormValues, addRunner}

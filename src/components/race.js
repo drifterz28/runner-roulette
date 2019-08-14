@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { updateRunner, clearRace, updateFormValues, runIt } from '../actions/form';
+import { updateRunner, clearRace, updateFormValues, runIt, clearLegs} from '../actions/form';
 import RunnerList from './runner-list';
 
 class RaceForm extends Component {
@@ -11,7 +11,6 @@ class RaceForm extends Component {
       lastPick: null
     }
   }
-
 
   editRace = () => {
     this.props.updateFormValues('hasStarted', false);
@@ -31,6 +30,7 @@ class RaceForm extends Component {
   }
 
   clearLegs = () => {
+    this.props.clearLegs();
     localStorage.removeItem('legs');
   }
 
@@ -57,7 +57,8 @@ class RaceForm extends Component {
     const pickButtonText = runnerNumber ? 'Pick another Runner' : 'Pick Runner';
     return (
       <div>
-        {Boolean(runnerNumber) && <div>
+        {Boolean(runnerNumber) &&
+        <div>
           <span>Hello {runner} you are up!</span>
           <button className='button is-danger' type="button" onClick={this.skipRun}>Skip</button>
           <button className='button is-primary' type="button" onClick={this.runIt}>Run it!</button>
@@ -78,5 +79,5 @@ export default connect(
     runners: state.runners,
     legs: state.legs
   }),
-  {updateRunner, clearRace, updateFormValues, runIt}
+  {updateRunner, clearRace, updateFormValues, runIt, clearLegs}
 )(RaceForm);

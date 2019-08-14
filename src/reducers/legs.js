@@ -7,8 +7,10 @@ export function raceState(state = [...initRaceState, ...initState], action) {
     const newState = [];
     const newRaceState = [...state, action.runner.name];
 		return newRaceState;
-	} else {
-		return state;
+	} else if(action.type === 'CLEAR_LEGS') {
+		return [];
+  } else {
+    return state;
   }
 }
 

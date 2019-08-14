@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { updateFormValues, addRunner } from '../actions/form';
 
-
 const Input = ({label, name, type = 'text', classes = '', defaultValue}) => (
   <div className='field column'>
     <label id={name} className='label'>{label}</label>
@@ -42,9 +41,9 @@ class RaceForm extends Component {
             type='text'
             name='raceName'
             defaultValue={raceName} />
-            <Input label='Runner Count' classes='input' name='runnerCount' type='number' defaultValue={runnerCount} />
-            <Input label='Leg Count' classes='input' name='legCount' type='number' defaultValue={legCount} />
-            <Input label='Legs per runner' classes='input' name='legsPerRunner' type='number' defaultValue={legsPerRunner} />
+          <Input label='Runner Count' classes='input' name='runnerCount' type='number' defaultValue={runnerCount} />
+          <Input label='Leg Count' classes='input' name='legCount' type='number' defaultValue={legCount} />
+          <Input label='Legs per runner' classes='input' name='legsPerRunner' type='number' defaultValue={legsPerRunner} />
         </form>
         <br/>
         <form onChange={this.updateRunners}>

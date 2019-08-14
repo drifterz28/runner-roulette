@@ -33,3 +33,9 @@ export const clearRace = () => dispatch => {
     type: 'CLEAR'
   });
 }
+
+export const clearLegs = () => dispatch => {
+  dispatch({
+    type: 'CLEAR_LEGS'
+  })
+}
